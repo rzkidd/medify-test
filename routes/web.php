@@ -40,5 +40,4 @@ Route::post('/category-items/form/{method}/{id?}', [App\Http\Controllers\Categor
 Route::get('/category-items/view/{kode}', [App\Http\Controllers\CategoryItemController::class, 'singleView']);
 Route::get('/category-items/delete/{id}', [App\Http\Controllers\CategoryItemController::class, 'delete']);
 
-Route::get('/category-items/update-random-data', [App\Http\Controllers\CategoryItemController::class, 'updateRandomData']);
-
+Route::get('/category-items/print/{id}', [App\Http\Controllers\CategoryItemController::class, 'print']);

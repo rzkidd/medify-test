@@ -26,6 +26,7 @@
                     </table>
                     <a class = "btn btn-info" href   = "{{url('category-items/form/edit')}}/{{$data->id}}">Edit</a>
                     <a class = "btn btn-danger" href = "{{url('category-items/delete')}}/{{$data->id}}" onclick = "return confirm('Are you sure you want to delete this item?');">Delete</a>
+                    <a class = "btn btn-success" href = "{{url('category-items/print')}}/{{$data->id}}" >Print</a>
                     
                     <h3 class = "mt-3">List Barang</h3>
                     <ol>

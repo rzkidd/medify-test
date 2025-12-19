@@ -45,7 +45,7 @@
                         <tr>
                             <th>Kategori</th>
                             <td>: </td>
-                            <td>{{$data->category->nama}}</td>
+                            <td>{{$data->category->nama ?? '-'}}</td>
                         </tr>
                         <tr>
                             <th>Foto</th>

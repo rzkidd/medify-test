@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CategoryItem;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class CategoryItemController extends Controller
@@ -77,5 +78,16 @@ class CategoryItemController extends Controller
         $item = CategoryItem::find($id);
         $item->delete();
         return redirect('category-items');
+    }
+
+    public function print($id)
+    {
+        $data = CategoryItem::find($id);
+
+        $pdf = Pdf::loadView('category_items.print.index', compact('data'))
+                  ->setPaper('A4', 'portrait');
+
+        // preview di browser
+        return $pdf->stream('category-items.pdf');
     }
 }
