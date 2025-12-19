@@ -15,10 +15,12 @@ class MasterItemsController extends Controller
 
     public function search(Request $request)
     {
-        $kode = $request->kode;
-        $nama = $request->nama;
-        $hargamin = $request->hargamin;
-        $hargamax = $request->hargamax;
+        $kode     = $request->kode;
+        $nama     = $request->nama;
+        $hargamin = intval($request->hargamin);
+        $hargamax = intval($request->hargamax);
+        
+        // dd($hargamin, $hargamax);
 
         $data_search = MasterItem::query();
 
@@ -27,7 +29,9 @@ class MasterItemsController extends Controller
         if (!empty($nama))
             $data_search = $data_search->where('nama', 'LIKE', '%' . $nama . '%');
         if (!empty($hargamin))
-            $data_search = $data_search->where('harga_beli', '>=', $hargamin)->where('harga_beli', '<=', $hargamax);
+            $data_search = $data_search->where('harga_beli', '>=', $hargamin);
+        if (!empty($hargamax))
+            $data_search = $data_search->where('harga_beli', '<=', $hargamax);
 
         $data_search = $data_search->select('kode', 'nama', 'jenis', 'harga_beli', 'laba', 'supplier', 'foto')->orderBy('id')->get();
 
