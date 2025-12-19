@@ -28,7 +28,7 @@
                 <a class = "navbar-link" href = "{{ url('/master-items') }}">
                     Master Items
                 </a>
-                <a class = "navbar-link" href = "{{ url('/category-items') }}">
+                <a class = "ms-3 navbar-link" href = "{{ url('/category-items') }}">
                     Category Items
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
