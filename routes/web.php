@@ -41,3 +41,5 @@ Route::get('/category-items/view/{kode}', [App\Http\Controllers\CategoryItemCont
 Route::get('/category-items/delete/{id}', [App\Http\Controllers\CategoryItemController::class, 'delete']);
 
 Route::get('/category-items/print/{id}', [App\Http\Controllers\CategoryItemController::class, 'print']);
+
+Route::get('/master-items/export', [App\Http\Controllers\MasterItemsController::class, 'export']);
