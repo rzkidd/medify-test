@@ -53,8 +53,7 @@
     @php $selected = $item->category->nama ?? ''; @endphp
     <div class     = "form-group">
         <label>Kategori</label>
-        <select class                                       = "form-control" required name = "category">
-        <option @if ($selected == '') selected @endif value = "">--Pilih--</option>
+        <select class = "form-control" required name = "categories[]" multiple>
         @foreach ($categories as $category)
             <option @if ($selected == $category->nama) selected @endif value="{{ $category->id }}">{{ $category->nama }}</option>
         @endforeach

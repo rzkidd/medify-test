@@ -24,7 +24,7 @@ class MasterItemsController extends Controller
         
         // dd($hargamin, $hargamax);
 
-        $data_search = MasterItem::query();
+        $data_search = MasterItem::query()->with('categories');
 
         if (!empty($kode))
             $data_search = $data_search->where('kode', $kode);
@@ -35,12 +35,22 @@ class MasterItemsController extends Controller
         if (!empty($hargamax))
             $data_search = $data_search->where('harga_beli', '<=', $hargamax);
 
-        $data_search = $data_search->leftJoin('category_items', 'category_items.id', '=', 'master_items.category_id')->select('master_items.kode', 'master_items.nama', 'jenis', 'harga_beli', 'laba', 'supplier', 'foto', 'category_items.nama as kategori')->orderBy('master_items.id')->get();
-
+        $items = $data_search->orderBy('master_items.id')->get()->map(function ($item) {
+            return [
+                'kode' => $item->kode,
+                'nama' => $item->nama,
+                'jenis' => $item->jenis,
+                'harga_beli' => $item->harga_beli,
+                'laba' => $item->laba,
+                'supplier' => $item->supplier,
+                'foto' => $item->foto,
+                'kategori' => $item->categories->pluck('nama')->join(', '),
+            ];
+        });
 
         return json_encode([
             'status' => 200,
-            'data' => $data_search
+            'data' => $items
         ]);
     }
 
@@ -95,9 +105,18 @@ class MasterItemsController extends Controller
         $data_item->kode       = $kode;
         $data_item->supplier   = $request->supplier;
         $data_item->jenis      = $request->jenis;
-        $data_item->category_id = $request->category;
 
         $data_item->save();
+
+        // support single `category` or multiple `categories` inputs
+        $categories = $request->input('categories', $request->input('category'));
+        if ($categories === null) {
+            $categories = [];
+        }
+        if (!is_array($categories)) {
+            $categories = [$categories];
+        }
+        $data_item->categories()->sync($categories);
 
         return redirect('master-items');
     }
@@ -106,6 +125,7 @@ class MasterItemsController extends Controller
     {
         $item = MasterItem::find($id);
         Storage::delete($item->foto);
+        $item->categories()->detach();
         $item->delete();
         return redirect('master-items');
     }

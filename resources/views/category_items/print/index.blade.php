@@ -61,19 +61,17 @@
             <th>No</th>
             <th>Nama Item</th>
             <th>Jenis</th>
-            <th>Kategori</th>
             <th>Harga Beli</th>
             <th>Harga Jual</th>
             <th>Supplier</th>
         </tr>
     </thead>
     <tbody>
-        @foreach($data->categoryItems as $i => $item)
+        @foreach($data->masterItems as $i => $item)
         <tr>
             <td>{{ $i + 1 }}</td>
             <td>{{ $item->nama }}</td>
             <td>{{ $item->jenis }}</td>
-            <td>{{ $item->category->nama ?? '-' }}</td>
             <td>{{ $item->harga_beli }}</td>
             <td>{{ $item->harga_beli * (100 + $item->laba) / 100 }}</td>
             <td>{{ $item->supplier }}</td>

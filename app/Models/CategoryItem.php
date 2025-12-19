@@ -9,8 +9,13 @@ class CategoryItem extends Model
 {
     use HasFactory;
 
-    public function categoryItems()
+    public function masterItems()
     {
-        return $this->hasMany(MasterItem::class, 'category_id', 'id');
+        return $this->belongsToMany(
+            MasterItem::class,
+            'category_item_master_item',
+            'category_item_id',
+            'master_item_id'
+        );
     }
 }

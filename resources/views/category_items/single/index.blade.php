@@ -30,7 +30,7 @@
                     
                     <h3 class = "mt-3">List Barang</h3>
                     <ol>
-                        @foreach($data->categoryItems as $item)
+                        @foreach($data->masterItems as $item)
                             <li><a href="{{url('master-items/view')}}/{{$item->kode}}">{{$item->nama}}</a></li>
                         @endforeach
                     </ol>

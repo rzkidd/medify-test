@@ -12,7 +12,7 @@ class MasterItemsExport implements FromCollection, WithHeadings, WithMapping
 
     public function collection()
     {
-        return MasterItem::with('category')->get();
+        return MasterItem::with('categories')->get();
     }
 
     public function headings(): array
@@ -32,7 +32,7 @@ class MasterItemsExport implements FromCollection, WithHeadings, WithMapping
     {
         return [
             ++$this->no,
-            $item->category->nama ?? '-',
+            $item->categories->pluck('nama')->join(', '),
             $item->nama,
             $item->supplier,
             $item->harga_beli,
