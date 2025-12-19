@@ -10,4 +10,9 @@ class MasterItem extends Model
 {
     use HasFactory;
     use SoftDeletes;
+
+    public function category()
+    {
+        return $this->belongsTo(CategoryItem::class, 'category_id', 'id');
+    }
 }

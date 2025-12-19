@@ -43,6 +43,11 @@
                             <td>{{$data->jenis}}</td>
                         </tr>
                         <tr>
+                            <th>Kategori</th>
+                            <td>: </td>
+                            <td>{{$data->category->nama}}</td>
+                        </tr>
+                        <tr>
                             <th>Foto</th>
                             <td>: </td>
                             <td><img src="{{ asset('storage/' . $data->foto) }}" alt="Foto Item" style="max-width: 200px;"></td>

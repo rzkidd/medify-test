@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CategoryItem;
 use App\Models\MasterItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -33,7 +34,7 @@ class MasterItemsController extends Controller
         if (!empty($hargamax))
             $data_search = $data_search->where('harga_beli', '<=', $hargamax);
 
-        $data_search = $data_search->select('kode', 'nama', 'jenis', 'harga_beli', 'laba', 'supplier', 'foto')->orderBy('id')->get();
+        $data_search = $data_search->leftJoin('category_items', 'category_items.id', '=', 'master_items.category_id')->select('master_items.kode', 'master_items.nama', 'jenis', 'harga_beli', 'laba', 'supplier', 'foto', 'category_items.nama as kategori')->orderBy('master_items.id')->get();
 
 
         return json_encode([
@@ -49,8 +50,9 @@ class MasterItemsController extends Controller
         } else {
             $item = MasterItem::find($id);
         }
-        $data['item'] = $item;
-        $data['method'] = $method;
+        $data['item']       = $item;
+        $data['method']     = $method;
+        $data['categories'] = CategoryItem::all();
         return view('master_items.form.index', $data);
     }
 
@@ -86,12 +88,13 @@ class MasterItemsController extends Controller
             $data_item->foto = $path;
         }
 
-        $data_item->nama = $request->nama;
+        $data_item->nama       = $request->nama;
         $data_item->harga_beli = $request->harga_beli;
-        $data_item->laba = $request->laba;
-        $data_item->kode = $kode;
-        $data_item->supplier = $request->supplier;
-        $data_item->jenis = $request->jenis;
+        $data_item->laba       = $request->laba;
+        $data_item->kode       = $kode;
+        $data_item->supplier   = $request->supplier;
+        $data_item->jenis      = $request->jenis;
+        $data_item->category_id = $request->category;
 
         $data_item->save();
 
