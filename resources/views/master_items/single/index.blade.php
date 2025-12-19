@@ -39,8 +39,13 @@
                         </tr>
                         <tr>
                             <th>Jenis</th>
-                            <td>:</td>
+                            <td>: </td>
                             <td>{{$data->jenis}}</td>
+                        </tr>
+                        <tr>
+                            <th>Foto</th>
+                            <td>: </td>
+                            <td><img src="{{ asset('storage/' . $data->foto) }}" alt="Foto Item" style="max-width: 200px;"></td>
                         </tr>
                     </table>
                     <a class="btn btn-info" href="{{url('master-items/form/edit')}}/{{$data->id}}">Edit</a>
